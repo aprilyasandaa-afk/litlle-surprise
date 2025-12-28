@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Happy Birthday Mass Pacarr💖</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+
+<style>
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  height:100vh;
+  overflow:hidden;
+  background:linear-gradient(135deg,#020617,#1e293b);
+  transition:background 1.5s ease;
+  font-family:Arial,sans-serif;
+}
+
+body.terang{
+  background:linear-gradient(135deg,#8ec5fc,#f9c5d1);
+}
+
+/* 🌟 bintang */
+.star{
+  position:fixed;
+  background:white;
+  border-radius:50%;
+  animation:twinkle 2s infinite;
+}
+@keyframes twinkle{
+  0%,100%{opacity:.2}
+  50%{opacity:1}
+}
+body.terang .star{opacity:0}
+
+/* center */
+.wrap{
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  z-index:2;
+  position:relative;
+}
+
+/* box */
+.box{
+  background:white;
+  padding:24px;
+  border-radius:24px;
+  width:420px;
+  text-align:center;
+  box-shadow:0 15px 40px rgba(0,0,0,.35);
+  animation:float 4s ease-in-out infinite;
+}
+@keyframes float{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-12px)}
+}
+
+/* judul */
+h1{
+  font-family:'Pacifico',cursive;
+  color:#ff69b4;
+  font-size:32px;
+  margin:0 0 16px;
+  text-shadow:0 0 12px rgba(255,105,180,.6);
+}
+
+/* foto */
+.foto{
+  display:flex;
+  justify-content:center;
+  gap:16px;
+  margin:16px 0;
+}
+
+.foto-awal img{
+  width:190px;
+  height:240px;
+  object-fit:cover;
+  border-radius:20px;
+  animation:pop 1s ease;
+  box-shadow:0 12px 28px rgba(0,0,0,.3);
+}
+
+.foto-hadiah{
+  display:none;
+}
+.foto-hadiah.show{display:flex}
+.foto-hadiah img{
+  width:130px;
+  height:170px;
+  object-fit:cover;
+  border-radius:18px;
+  animation:slide .8s ease forwards;
+  box-shadow:0 10px 24px rgba(0,0,0,.25);
+}
+
+@keyframes pop{
+  from{transform:scale(0);opacity:0}
+  to{transform:scale(1);opacity:1}
+}
+@keyframes slide{
+  from{transform:translateY(40px);opacity:0}
+  to{transform:translateY(0);opacity:1}
+}
+
+/* tombol */
+button{
+  padding:14px 28px;
+  border:none;
+  border-radius:30px;
+  background:#ff69b4;
+  color:white;
+  font-size:16px;
+  cursor:pointer;
+  animation:pulse 1.5s infinite;
+}
+@keyframes pulse{
+  0%{transform:scale(1)}
+  50%{transform:scale(1.1)}
+  100%{transform:scale(1)}
+}
+
+/* tombol meledak */
+.explode{
+  animation:boom .6s forwards;
+}
+@keyframes boom{
+  to{
+    transform:scale(2);
+    opacity:0;
+  }
+}
+
+/* pesan */
+#pesan{
+  margin-top:16px;
+  font-weight:bold;
+  color:#444;
+  opacity:0;
+  transition:1s;
+}
+#pesan.show{opacity:1}
+
+/* 🎈 balon */
+.balon{
+  position:fixed;
+  bottom:-80px;
+  font-size:40px;
+  animation:naik 6s linear forwards;
+  z-index:1;
+}
+@keyframes naik{
+  to{
+    transform:translateY(-120vh);
+    opacity:0;
+  }
+}
+
+/* confetti */
+.confetti{
+  position:fixed;
+  top:-20px;
+  font-size:22px;
+  animation:fall 3s linear forwards;
+}
+@keyframes fall{
+  to{transform:translateY(110vh) rotate(360deg)}
+}
+</style>
+</head>
+
+<body>
+
+<div class="wrap">
+  <div class="box">
+    <h1>Happy Birthday Pacarr🎂</h1>
+
+    <div class="foto foto-awal">
+      <img src="foto1.jpg">
+    </div>
+
+    <div class="foto foto-hadiah" id="hadiah">
+      <img src="foto2.jpg">
+      <img src="foto3.jpg">
+    </div>
+
+    <button id="btn" onclick="buka()">🎁 Buka Hadiah</button>
+    <div id="pesan"></div>
+  </div>
+</div>
+
+<audio id="musik" src="lagu.mp3"></audio>
+
+<script>
+/* bintang */
+for(let i=0;i<70;i++){
+  let s=document.createElement("div");
+  s.className="star";
+  let z=Math.random()*3+2;
+  s.style.width=z+"px";
+  s.style.height=z+"px";
+  s.style.top=Math.random()*innerHeight+"px";
+  s.style.left=Math.random()*innerWidth+"px";
+  document.body.appendChild(s);
+}
+
+function buka(){
+  document.body.classList.add("terang");
+  document.getElementById("hadiah").classList.add("show");
+
+  let btn=document.getElementById("btn");
+  btn.classList.add("explode");
+  setTimeout(()=>btn.remove(),600);
+
+  let p=document.getElementById("pesan");
+  p.innerText="Semoga mamas selalu bahagia, sehat, dan segala impian mamas dapat tercapai 💖✨";
+  p.classList.add("show");
+
+  document.getElementById("musik").play();
+
+  /* confetti */
+  for(let i=0;i<30;i++){
+    let c=document.createElement("div");
+    c.className="confetti";
+    c.innerText=["🎉","💖","✨","🎂"][Math.floor(Math.random()*4)];
+    c.style.left=Math.random()*innerWidth+"px";
+    document.body.appendChild(c);
+    setTimeout(()=>c.remove(),3000);
+  }
+
+  /* balon */
+  for(let i=0;i<15;i++){
+    let b=document.createElement("div");
+    b.className="balon";
+    b.innerText="🎈";
+    b.style.left=Math.random()*innerWidth+"px";
+    b.style.animationDuration=(4+Math.random()*3)+"s";
+    document.body.appendChild(b);
+    setTimeout(()=>b.remove(),6000);
+  }
+}
+</script>
+
+</body>
+</html>
